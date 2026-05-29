@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dbtest;
+import database.DBConnection;
 
-/**
- *
- * @author edith
- */
 public class TestDBConnection {
-    
+    public static void main (String[ ] args ){
+        DBConnection db = new DBConnection();
+        db.CloseConnection();
+    }
 }

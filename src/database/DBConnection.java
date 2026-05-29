@@ -7,7 +7,7 @@ public class DBConnection {
     //using transaction pooler (shared pooler)
     //Added a config file to avoid hard coding values (kinda like .env but .env for java is hard )
     // url = jdbc:postgres://host:port/databasename
-    public String url = Config.BD_Url;
+    public String url = Config.DB_Url;
     public String username = Config.DB_Username;
     public String password =  Config.DB_Password;
     public Connection con;

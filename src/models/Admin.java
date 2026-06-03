@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
-/**
- *
- * @author edith
- */
-public class Admin {
+public class Admin extends User {
+    // constructor that calls the user fields 
+    public Admin(String student_id, String student_name, String student_email, String password, Role role, int year_of_study, String expertise, int max_hours_per_week) {
+        super(student_id, student_name, student_email, password, role, year_of_study, expertise, max_hours_per_week);
+    }
     
 }

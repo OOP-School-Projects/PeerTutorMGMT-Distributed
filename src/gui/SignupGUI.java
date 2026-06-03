@@ -48,6 +48,9 @@ public class SignupGUI extends Application {
             signupStage.setTitle("Sign up");
             signupStage.setScene(scene);
             signupStage.show();
+            
+         //css
+         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
     public static void main(String[] args){
         launch(args);

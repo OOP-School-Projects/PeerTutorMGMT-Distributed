@@ -37,6 +37,8 @@ public class MainDashboardGUI extends javafx.application.Application{
         dashboardStage.setTitle("Main Dashboard");
         dashboardStage.setScene(scene);
         dashboardStage.show();
+        //css
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
     public static void main(String[] args){
         launch(args);

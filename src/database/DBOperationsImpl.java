@@ -1,13 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
-/**
- *
- * @author edith
- */
-public class DBOperationsImpl {
-    
+import java.util.List;
+
+public class DBOperationsImpl implements DBOperations {
+   @Override
+   public void insertOperation(Object obj){
+       
+   }
+   @Override
+   public Object selectOperation(String id){
+       
+       return null;
+       
+   }
+   @Override
+   public List selectAllOperation(){
+       
+       return null;
+       
+   }
+   @Override
+   public void updateOperation(Object obj){
+       
+   }
+   @Override
+   public void deleteOperation(String id){
+       
+   }
 }

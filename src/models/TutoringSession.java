@@ -1,17 +1,19 @@
 package models;
 
+import java.time.LocalDateTime;
+
 public class TutoringSession {
        
     //var
     private int session_id;
     private String subject;
     private String tutor_id;
-    private String datetime;
+    private LocalDateTime datetime;
     private int max_students;
     private SessionStatus status;
 
     //constructor
-    public TutoringSession(int session_id, String subject, String tutor_id, String datetime, int max_students, SessionStatus status) {
+    public TutoringSession(int session_id, String subject, String tutor_id, LocalDateTime datetime, int max_students, SessionStatus status) {
         this.session_id = session_id;
         this.subject = subject;
         this.tutor_id = tutor_id;
@@ -33,7 +35,7 @@ public class TutoringSession {
         return tutor_id;
     }
 
-    public String getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
@@ -58,7 +60,7 @@ public class TutoringSession {
         this.tutor_id = tutor_id;
     }
 
-    public void setDatetime(String datetime) {
+    public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 

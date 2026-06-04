@@ -39,7 +39,7 @@ public class DBUpdate {
         else if (obj instanceof TutoringSession){
             TutoringSession tutoringSession = (TutoringSession) obj;
             DBConnection dbc = new DBConnection();
-            String query = "UPDATE sessions SET subject=?, tutor=?, datetime=?, max_students=?, status=? WHERE session_id=?";
+            String query = "UPDATE sessions SET subject=?, tutor_id=?, datetime=?, max_students=?, status=? WHERE session_id=?";
             try{
                 PreparedStatement pst = dbc.con.prepareStatement(query);
                 // gets the values from the tutoring sesh object and turns into sql

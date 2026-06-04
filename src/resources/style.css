@@ -1,1 +1,225 @@
+/* Root variables - Strathmore palette */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f6fb;
+}
 
+/* General scene background */
+.vbox, .hbox {
+    -fx-background-color: transparent;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #1a2a4a;
+    -fx-font-size: 13px;
+}
+
+/* Input fields */
+.text-field, .password-field, .combo-box, .date-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b0bcd4;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+    -fx-pref-width: 300px;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #1a4fa0;
+    -fx-effect: dropshadow(gaussian, #1a4fa040, 4, 0, 0, 0);
+}
+
+/* Primary buttons - blue */
+.button {
+    -fx-background-color: #1a4fa0;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 20px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #153d80;
+}
+
+/* Danger buttons - delete, decline, cancel */
+.button-danger {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 6px 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button-danger:hover {
+    -fx-background-color: #a93226;
+}
+
+/* Success buttons - approve, confirm */
+.button-success {
+    -fx-background-color: #1e8449;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 6px 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.button-success:hover {
+    -fx-background-color: #196f3d;
+}
+
+/* Small action buttons inside tables */
+.button-small {
+    -fx-background-color: #1a4fa0;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 4px 10px;
+    -fx-font-size: 11px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.button-small:hover {
+    -fx-background-color: #153d80;
+}
+
+/* Link style - for "already have an account" etc */
+.link-label {
+    -fx-text-fill: #1a4fa0;
+    -fx-font-size: 12px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.link-label:hover {
+    -fx-text-fill: #c0392b;
+}
+
+/* Top bar on dashboard */
+.top-bar {
+    -fx-background-color: #1a2a4a;
+    -fx-padding: 12px 20px;
+    -fx-spacing: 20px;
+}
+
+.top-bar .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+}
+
+.top-bar .button {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 6px 16px;
+}
+
+.top-bar .button:hover {
+    -fx-background-color: #a93226;
+}
+
+/* Cards / form containers */
+.form-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dce3f0;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 30px;
+    -fx-spacing: 12px;
+    -fx-effect: dropshadow(gaussian, #b0bcd440, 8, 0, 0, 2);
+}
+
+/* Section titles */
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a2a4a;
+}
+
+/* Stats label on admin */
+.stats-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #1a4fa0;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 6px;
+}
+
+/* Tables */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dce3f0;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #1a2a4a;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-padding: 8px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+/* Alternating row colours */
+.table-row-cell:even {
+    -fx-background-color: #f0f4fb;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #ffffff;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #d0ddf5;
+}
+
+/* Tab pane */
+.tab-pane .tab {
+    -fx-background-color: #dce3f0;
+    -fx-padding: 8px 20px;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #1a4fa0;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #ffffff;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #1a2a4a;
+    -fx-font-size: 13px;
+}
+
+/* Alert dialogs */
+.alert .button {
+    -fx-background-color: #1a4fa0;
+}
+
+/* Feedback labels - success/error messages */
+.label-success {
+    -fx-text-fill: #1e8449;
+    -fx-font-size: 12px;
+}
+
+.label-error {
+    -fx-text-fill: #c0392b;
+    -fx-font-size: 12px;
+}
+/* override size for all buttons inside table cells */
+.table-row-cell .button {
+    -fx-padding: 4px 10px;
+    -fx-font-size: 11px;
+}

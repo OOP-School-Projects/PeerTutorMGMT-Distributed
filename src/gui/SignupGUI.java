@@ -50,7 +50,7 @@ public class SignupGUI extends Application {
             signupStage.show();
             
          //css
-         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+         //scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
     public static void main(String[] args){
         launch(args);

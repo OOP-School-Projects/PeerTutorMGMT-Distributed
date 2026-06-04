@@ -39,7 +39,7 @@ public class CRUDSessionGUI extends javafx.application.Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         //css
-        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
     public static void main(String[] args){
         launch(args);

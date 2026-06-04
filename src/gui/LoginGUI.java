@@ -48,7 +48,7 @@ public class LoginGUI extends Application {
             loginStage.setScene(scene);
             loginStage.show();
         //css
-        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        //scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
     }
     public static void main(String[] args){
         launch(args);

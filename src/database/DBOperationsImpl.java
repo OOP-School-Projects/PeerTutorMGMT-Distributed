@@ -1,30 +1,39 @@
 package database;
 
 import java.util.List;
-
+//calls the diff classs
 public class DBOperationsImpl implements DBOperations {
+    //variables to hold instances of the DB operations 
+    public DBInsert dbInsert = new DBInsert();
+    private DBSelect dbSelect = new DBSelect();
+    private DBSelectAll dbSelectAll = new DBSelectAll();
+    private DBUpdate dbUpdate = new DBUpdate();
+    private DBDelete dbDelete = new DBDelete();    
+    
    @Override
    public void insertOperation(Object obj){
-       
+       dbInsert.insertOperation(obj);
    }
+   
    @Override
-   public Object selectOperation(String id){
-       
-       return null;
+   public Object selectOperation(Object id, String table){    
+       return dbSelect.selectOperation(id, table);
        
    }
+   
    @Override
-   public List selectAllOperation(){
-       
-       return null;
+   public List<Object> selectAllOperation(String table){     
+       return dbSelectAll.selectAllOperation(table);
        
    }
+   
    @Override
    public void updateOperation(Object obj){
-       
+       dbUpdate.updateOperation(obj);
    }
+   
    @Override
-   public void deleteOperation(String id){
-       
+   public void deleteOperation(Object id, String table){
+       dbDelete.deleteOperation(id, table);
    }
 }

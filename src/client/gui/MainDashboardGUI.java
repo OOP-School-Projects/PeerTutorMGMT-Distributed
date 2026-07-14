@@ -397,17 +397,25 @@ private void buildTutorView(VBox content){
 
 private List<Object> safeSelectAll(DBOperationsRemote db, String table){
     try{
-        return safeSelectAll(db,table);
+        return db.selectAllOperation(table);
     }catch(Exception ex){
         showConnectionError(ex);
         return new ArrayList<>();
     }
 }
 private void safeUpdate(DBOperationsRemote db, Object obj){
-    try{ safeUpdate(db,obj); }catch(Exception ex){ showConnectionError(ex); }
+    try{ 
+        db.updateOperation(obj); 
+    }catch(Exception ex){ 
+        showConnectionError(ex); 
+    }
 }
 private void safeDelete(DBOperationsRemote db, Object id, String table){
-    try{ safeDelete(db, id, table); }catch(Exception ex){ showConnectionError(ex); }
+    try{ 
+        db.deleteOperation(id, table); 
+    }catch(Exception ex){ 
+        showConnectionError(ex); 
+    }
 }
 private void showConnectionError(Exception ex){
     Alert alert = new Alert(Alert.AlertType.ERROR);

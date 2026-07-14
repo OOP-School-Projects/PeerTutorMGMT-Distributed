@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.User;
-import server.database.*;
+import server.database.DBOperationsRemote;
 import javafx.geometry.Insets;
 
 public class LoginGUI extends Application {
@@ -30,7 +30,7 @@ public class LoginGUI extends Application {
                 //Query the db when the button is pressed 
                 //try catch to call my gui to call one site as my template
                 try{
-                    DBOperationsRemote db = rmi.RMIClient.getStub;
+                    DBOperationsRemote db = rmi.RMIClient.getStub();
                     User user = (User) db.selectOperation(student_id, "users");
                     if (user != null && user.getPassword().equals(password)){
                       //checks if credentials are correct then loads the dashboard
@@ -46,9 +46,9 @@ public class LoginGUI extends Application {
                         alert.setContentText("Invalid student ID or password. Please try again !");
                         alert.showAndWait();
                     }         
-                }catch(exception e){
+                }catch(Exception except){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("Could not reach server: " + e.getMessage());
+                    alert.setContentText("Could not reach server: " + except.getMessage());
                     alert.showAndWait();
                 }
                 

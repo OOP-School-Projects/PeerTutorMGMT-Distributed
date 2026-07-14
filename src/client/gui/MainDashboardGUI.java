@@ -77,7 +77,16 @@ public class MainDashboardGUI extends Application {
     }
   //builds the tutee view - available sessions + my requests
 private void buildTuteeView(VBox content){
-    DBOperations db = new DBOperationsImpl();
+    DBOperationsRemote db;
+    try{
+        db = rmi.RMIClient.getStub();     
+    }catch(Exception except){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Could not reach server: " + except.getMessage());
+        alert.showAndWait();
+        return;
+    }
+    
     //for ref bu session table 
     TableView<Booking> myRequestsTable = new TableView<>();
     
@@ -225,7 +234,15 @@ private void buildTuteeView(VBox content){
 
 //builds the tutor view - my sessions + booking requests
 private void buildTutorView(VBox content){
-    DBOperations db = new DBOperationsImpl();
+    DBOperationsRemote db;
+    try{
+        db = rmi.RMIClient.getStub();     
+    }catch(Exception except){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Could not reach server: " + except.getMessage());
+        alert.showAndWait();
+        return;
+    }
     
     //my sessions table
         Label mySessionsLabel = new Label("My Sessions");
@@ -379,7 +396,7 @@ private void buildTutorView(VBox content){
 }
 
 //helper for loading pending bookings into the tutor's booking requests table
-private void loadPendingBookings(TableView<Booking> table, DBOperations db, Runnable loadMySessions){
+private void loadPendingBookings(TableView<Booking> table, DBOperationsRemote db, Runnable loadMySessions){
     List<Object> allSessions = db.selectAllOperation("sessions");
     java.util.Set<Integer> mySessionIds = new java.util.HashSet<>();
     for(Object obj : allSessions){
@@ -401,7 +418,15 @@ private void loadPendingBookings(TableView<Booking> table, DBOperations db, Runn
 
 //builds the admin view - tabs for users, sessions, bookings + stats
 private void buildAdminView(VBox content){
-    DBOperations db = new DBOperationsImpl();
+    DBOperationsRemote db;
+    try{
+        db = rmi.RMIClient.getStub();     
+    }catch(Exception except){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Could not reach server: " + except.getMessage());
+        alert.showAndWait();
+        return;
+    }
     
     //stats label - updated on refresh
         Label statsLabel = new Label();

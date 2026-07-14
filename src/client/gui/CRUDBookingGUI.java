@@ -44,10 +44,17 @@ public class CRUDBookingGUI extends Application {
                 confirmBtn.setOnAction(e -> {
                     //status auto set to PENDING
                     Booking newBooking = new Booking(0, sessionToBook.getSession_id(), loggedInUser.getStudent_id(), BookingStatus.PENDING, LocalDateTime.now());
-                    DBOperations db = new DBOperationsImpl();
-                    db.insertOperation(newBooking);
-                    if(refreshCallback != null){ refreshCallback.run(); }
-                    crudStage.close();
+                    try{
+                        DBOperationsRemote db = rmi.RMIClient.getStub();
+                        db.insertOperation(newBooking);
+                        if(refreshCallback != null){ refreshCallback.run(); }
+                        crudStage.close();
+                    }catch(Exception except){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Could not reach server: " + except.getMessage());
+                        alert.showAndWait();
+                    }
+                    
                 });
                 
                 Button cancelBtn = new Button("Cancel");
@@ -73,10 +80,17 @@ public class CRUDBookingGUI extends Application {
                 saveBtn.setOnAction(e -> {
                     BookingStatus newStatus = BookingStatus.valueOf(statusField.getValue().toUpperCase());
                     bookingToManage.setStatus(newStatus);
-                    DBOperations db = new DBOperationsImpl();
-                    db.updateOperation(bookingToManage);
-                    if(refreshCallback != null){ refreshCallback.run(); }
-                    crudStage.close();
+                    try{
+                        DBOperationsRemote db = rmi.RMIClient.getStub();
+                        db.updateOperation(bookingToManage);
+                        if(refreshCallback != null){ refreshCallback.run(); }
+                        crudStage.close();
+                    }catch(Exception except){
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Could not reach server: " + except.getMessage());
+                        alert.showAndWait();
+                    }
+                    
                 });
                 
                 Button cancelBtn = new Button("Cancel");

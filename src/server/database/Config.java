@@ -9,5 +9,5 @@ public class Config {
     //local db 
     public static final String DB_Url = "jdbc:postgresql://localhost:5433/peer_tutor";
     public static final String DB_Username = "postgres";
-    public static final String DB_Password = "your_school_postgres_password";
+    public static final String DB_Password = "TutorPeer2026";
 }

@@ -55,10 +55,15 @@ public class SignupGUI extends Application {
              Role role = Role.valueOf(roleStr.toUpperCase());
             // Create Tutee (works for all roles)
             User newUser = new Tutee(id, name, email, password, role, 0, "", 0);
-            
-            DBOperations db = new DBOperationsImpl();
+           try{ 
+            DBOperationsRemote db = rmi.RMIClient.getStub();
             db.insertOperation(newUser);
             statusLabel.setText("Signup successful! You can now log in.");
+           } catch(Exception except){
+               statusLabel.setText("Could not treach server:" + except.getMessage());
+               return;
+           }
+           
             
             // Auto-close after 2 seconds
             new Thread(() -> {

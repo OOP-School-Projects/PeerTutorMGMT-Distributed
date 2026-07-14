@@ -124,7 +124,7 @@ private void buildTuteeView(VBox content){
                     bookingForm.setMode("request");
                     //refresh my requests table after confirming
                     bookingForm.setRefreshCallback(() -> {
-                        List<Object> updatedBookings = db.selectAllOperation("bookings");
+                        List<Object> updatedBookings = safeSelectAll(db,"bookings");
                         ObservableList<Booking> myBookings = FXCollections.observableArrayList();
                         for(Object obj : updatedBookings){
                             Booking b = (Booking) obj;
@@ -148,7 +148,7 @@ private void buildTuteeView(VBox content){
         
         //load available sessions
         Runnable loadAvailable = () -> {
-            List<Object> allSessions = db.selectAllOperation("sessions");
+            List<Object> allSessions = safeSelectAll(db,"sessions");
             ObservableList<TutoringSession> availableSessions = FXCollections.observableArrayList();
             for(Object obj : allSessions){
                 TutoringSession s = (TutoringSession) obj;
@@ -186,9 +186,9 @@ private void buildTuteeView(VBox content){
                     Booking selected = getTableView().getItems().get(getIndex());
                     //update status to cancelled in db
                     selected.setStatus(BookingStatus.CANCELLED);
-                    db.updateOperation(selected);
+                    safeUpdate(db, selected);
                     //refresh the table from db
-                    List<Object> updated = db.selectAllOperation("bookings");
+                    List<Object> updated = safeSelectAll(db,"bookings");
                     ObservableList<Booking> myBookings = FXCollections.observableArrayList();
                     for(Object obj : updated){
                         Booking b = (Booking) obj;
@@ -214,7 +214,7 @@ private void buildTuteeView(VBox content){
         myRequestsTable.getColumns().addAll(bookingIdCol, bookingSessionCol, bookingStatusCol, requestedAtCol, cancelCol);
         
         Runnable loadMyRequests = () -> {
-            List<Object> allBookings = db.selectAllOperation("bookings");
+            List<Object> allBookings = safeSelectAll(db,"bookings");
             ObservableList<Booking> myBookings = FXCollections.observableArrayList();
             for(Object obj : allBookings){
                 Booking b = (Booking) obj;
@@ -279,7 +279,7 @@ private void buildTutorView(VBox content){
                     sessionForm.setMode("edit");
                     //refresh after editing
                     sessionForm.setRefreshCallback(() -> {
-                        List<Object> allSessions = db.selectAllOperation("sessions");
+                        List<Object> allSessions = safeSelectAll(db,"sessions");
                         ObservableList<TutoringSession> mySessions = FXCollections.observableArrayList();
                         for(Object obj : allSessions){
                             TutoringSession s = (TutoringSession) obj;
@@ -293,7 +293,7 @@ private void buildTutorView(VBox content){
                 });
                 deleteBtn.setOnAction(e -> {
                     TutoringSession selected = getTableView().getItems().get(getIndex());
-                    db.deleteOperation(selected.getSession_id(), "sessions");
+                    safeDelete(db, selected.getSession_id(), "sessions");
                     mySessionsTable.getItems().remove(selected);
                 });
                 deleteBtn.getStyleClass().add("button-danger");
@@ -308,7 +308,7 @@ private void buildTutorView(VBox content){
         mySessionsTable.getColumns().addAll(sessionIdCol, subjectCol, datetimeCol, maxStudentsCol, statusCol, actionsCol);
         
         Runnable loadMySessions = () -> {
-            List<Object> allSessions = db.selectAllOperation("sessions");
+            List<Object> allSessions = safeSelectAll(db,"sessions");
             ObservableList<TutoringSession> mySessions = FXCollections.observableArrayList();
             for(Object obj : allSessions){
                 TutoringSession s = (TutoringSession) obj;
@@ -373,7 +373,7 @@ private void buildTutorView(VBox content){
                 declineBtn.setOnAction(e -> {
                     Booking selected = getTableView().getItems().get(getIndex());
                     selected.setStatus(BookingStatus.CANCELLED);
-                    db.updateOperation(selected);
+                    safeUpdate(db,selected);
                     bookingRequestsTable.getItems().remove(selected);
                 });
             }
@@ -395,9 +395,29 @@ private void buildTutorView(VBox content){
     content.getChildren().addAll(mySessionsLabel, createSessionBtn, refreshSessionsBtn, mySessionsTable, bookingRequestsLabel, refreshBookingsBtn, bookingRequestsTable);
 }
 
+private List<Object> safeSelectAll(DBOperationsRemote db, String table){
+    try{
+        return safeSelectAll(db,table);
+    }catch(Exception ex){
+        showConnectionError(ex);
+        return new ArrayList<>();
+    }
+}
+private void safeUpdate(DBOperationsRemote db, Object obj){
+    try{ safeUpdate(db,obj); }catch(Exception ex){ showConnectionError(ex); }
+}
+private void safeDelete(DBOperationsRemote db, Object id, String table){
+    try{ safeDelete(db, id, table); }catch(Exception ex){ showConnectionError(ex); }
+}
+private void showConnectionError(Exception ex){
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setContentText("Could not reach server: " + ex.getMessage());
+    alert.showAndWait();
+}
+
 //helper for loading pending bookings into the tutor's booking requests table
 private void loadPendingBookings(TableView<Booking> table, DBOperationsRemote db, Runnable loadMySessions){
-    List<Object> allSessions = db.selectAllOperation("sessions");
+    List<Object> allSessions = safeSelectAll(db,"sessions");
     java.util.Set<Integer> mySessionIds = new java.util.HashSet<>();
     for(Object obj : allSessions){
         TutoringSession s = (TutoringSession) obj;
@@ -405,7 +425,7 @@ private void loadPendingBookings(TableView<Booking> table, DBOperationsRemote db
             mySessionIds.add(s.getSession_id());
         }
     }
-    List<Object> allBookings = db.selectAllOperation("bookings");
+    List<Object> allBookings = safeSelectAll(db,"bookings");
     ObservableList<Booking> pendingBookings = FXCollections.observableArrayList();
     for(Object obj : allBookings){
         Booking b = (Booking) obj;
@@ -432,9 +452,9 @@ private void buildAdminView(VBox content){
         Label statsLabel = new Label();
         
         Runnable updateStats = () -> {
-            int users = db.selectAllOperation("users").size();
-            int sessions = db.selectAllOperation("sessions").size();
-            int bookings = db.selectAllOperation("bookings").size();
+            int users = safeSelectAll(db,"users").size();
+            int sessions = safeSelectAll(db,"sessions").size();
+            int bookings = safeSelectAll(db,"bookings").size();
             statsLabel.setText("Stats — Users: " + users + " | Sessions: " + sessions + " | Bookings: " + bookings);
             statsLabel.getStyleClass().add("stats-label");
         };
@@ -468,7 +488,7 @@ private void buildAdminView(VBox content){
             {
                 deleteBtn.setOnAction(e -> {
                     User selected = getTableView().getItems().get(getIndex());
-                    db.deleteOperation(selected.getStudent_id(), "users");
+                    safeDelete(db, selected.getStudent_id(), "users");
                     usersTable.getItems().remove(selected);
                     updateStats.run();
                 });
@@ -484,7 +504,7 @@ private void buildAdminView(VBox content){
         
         Runnable loadUsers = () -> {
             ObservableList<User> userList = FXCollections.observableArrayList();
-            for(Object obj : db.selectAllOperation("users")){ userList.add((User) obj); }
+            for(Object obj : safeSelectAll(db,"users")){ userList.add((User) obj); }
             usersTable.setItems(userList);
         };
         loadUsers.run();
@@ -526,7 +546,7 @@ private void buildAdminView(VBox content){
         
         Runnable loadSessions = () -> {
             ObservableList<TutoringSession> sessionList = FXCollections.observableArrayList();
-            for(Object obj : db.selectAllOperation("sessions")){ sessionList.add((TutoringSession) obj); }
+            for(Object obj : safeSelectAll(db,"sessions")){ sessionList.add((TutoringSession) obj); }
             sessionsTable.setItems(sessionList);
         };
         
@@ -547,7 +567,7 @@ private void buildAdminView(VBox content){
                 });
                 deleteBtn.setOnAction(e -> {
                     TutoringSession selected = getTableView().getItems().get(getIndex());
-                    db.deleteOperation(selected.getSession_id(), "sessions");
+                    safeDelete(db, selected.getSession_id(), "sessions");
                     sessionsTable.getItems().remove(selected);
                     updateStats.run();
                 });
@@ -602,7 +622,7 @@ private void buildAdminView(VBox content){
         
         Runnable loadBookings = () -> {
             ObservableList<Booking> bookingList = FXCollections.observableArrayList();
-            for(Object obj : db.selectAllOperation("bookings")){ bookingList.add((Booking) obj); }
+            for(Object obj : safeSelectAll(db,"bookings")){ bookingList.add((Booking) obj); }
             bookingsTable.setItems(bookingList);
         };
         
@@ -611,7 +631,7 @@ private void buildAdminView(VBox content){
             {
                 deleteBtn.setOnAction(e -> {
                     Booking selected = getTableView().getItems().get(getIndex());
-                    db.deleteOperation(selected.getBooking_id(), "bookings");
+                    safeDelete(db, selected.getBooking_id(), "bookings");
                     bookingsTable.getItems().remove(selected);
                     updateStats.run();
                 });

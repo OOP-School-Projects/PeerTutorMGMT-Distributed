@@ -87,8 +87,9 @@ public class CRUDSessionGUI extends Application {
                 }
                 
                 SessionStatus status = SessionStatus.valueOf(statusField.getValue().toUpperCase());
-                DBOperations db = new DBOperationsImpl();
-                
+            try{  
+                DBOperationsRemote db = rmi.RMIClient.getStub();
+                          
                 if(mode.equals("create")){
                     //session_id = 0 because DB generates it
                     TutoringSession newSession = new TutoringSession(0, subject, loggedInUser.getStudent_id(), datetime, maxStudents, status);
@@ -104,6 +105,9 @@ public class CRUDSessionGUI extends Application {
                     if(refreshCallback != null){ refreshCallback.run(); }
                     crudStage.close();
                 }
+            } catch(Exception except){
+                        feedbackLabel.setText("Could not reach server: " + except.getMessage());
+                        }
             });
             
             Button cancelBtn = new Button("Cancel");

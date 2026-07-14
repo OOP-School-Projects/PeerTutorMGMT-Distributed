@@ -1,4 +1,4 @@
-package database;
+package server.database;
 
 public class Config {
     //public static final String DB_Url = "jdbc:postgresql://aws-1-eu-central-1.pooler.supabase.com:6543/postgres";

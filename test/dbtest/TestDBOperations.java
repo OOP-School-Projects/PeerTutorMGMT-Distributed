@@ -1,5 +1,5 @@
 package dbtest;
-import database.DBOperationsImpl;
+import server.database.DBOperationsImpl;
 import models.*;
 import java.time.LocalDateTime;
 import java.util.List;

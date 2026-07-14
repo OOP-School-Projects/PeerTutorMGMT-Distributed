@@ -1,4 +1,4 @@
-package gui;
+package client.gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.User;
-import database.*;
+import server.database.*;
 import javafx.geometry.Insets;
 
 public class LoginGUI extends Application {
@@ -28,22 +28,30 @@ public class LoginGUI extends Application {
                 String student_id = idField.getText();
                 String password = passwordField.getText();
                 //Query the db when the button is pressed 
-                DBOperations db = new DBOperationsImpl();
-                User user = (User) db.selectOperation(student_id, "users");
-                if (user != null && user.getPassword().equals(password)){
-                  //checks if credentials are correct then loads the dashboard
-                  Stage dashboardStage = new Stage();
-                  MainDashboardGUI dash = new MainDashboardGUI();
-                  dash.setLoggedInUser(user);
-                  dash.start(dashboardStage);
-                  loginStage.close();
-                } else {
+                //try catch to call my gui to call one site as my template
+                try{
+                    DBOperationsRemote db = rmi.RMIClient.getStub;
+                    User user = (User) db.selectOperation(student_id, "users");
+                    if (user != null && user.getPassword().equals(password)){
+                      //checks if credentials are correct then loads the dashboard
+                      Stage dashboardStage = new Stage();
+                      MainDashboardGUI dash = new MainDashboardGUI();
+                      dash.setLoggedInUser(user);
+                      dash.start(dashboardStage);
+                      loginStage.close();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Login Failed");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Invalid student ID or password. Please try again !");
+                        alert.showAndWait();
+                    }         
+                }catch(exception e){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Login Failed");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Invalid student ID or password. Please try again !");
+                    alert.setContentText("Could not reach server: " + e.getMessage());
                     alert.showAndWait();
                 }
+                
             });
             Label lb3 = new Label();
             lb3.setText("Don't have an account? Sign up");

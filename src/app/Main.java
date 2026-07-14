@@ -1,6 +1,6 @@
 package app;
 
-import gui.LoginGUI;
+import client.gui.LoginGUI;
 import javafx.application.Application;
 
 public class Main {

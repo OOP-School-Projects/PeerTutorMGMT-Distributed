@@ -1,8 +1,14 @@
-package database;
+package server.database;
 
 import java.util.List;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 //calls the diff classs
-public class DBOperationsImpl implements DBOperations {
+public class DBOperationsImpl extends UnicastRemoteObject implements DBOperationsRemote {
+    public DBOperationsImpl() throws RemoteException{
+        super();
+    }
     //variables to hold instances of the DB operations 
     public DBInsert dbInsert = new DBInsert();
     private DBSelect dbSelect = new DBSelect();

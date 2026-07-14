@@ -1,4 +1,4 @@
-package gui;
+package client.gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import models.*;
-import database.*;
+import server.database.*;
 import java.time.LocalDateTime;
 
 public class CRUDBookingGUI extends Application {

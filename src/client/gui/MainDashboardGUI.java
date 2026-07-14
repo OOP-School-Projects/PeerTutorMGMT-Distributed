@@ -1,4 +1,4 @@
-package gui;
+package client.gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,7 +9,7 @@ import javafx.geometry.Insets;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.*;
-import database.*;
+import server.database.*;
 import java.util.*;
 
 

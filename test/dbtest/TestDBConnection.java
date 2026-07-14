@@ -1,5 +1,5 @@
 package dbtest;
-import database.DBConnection;
+import server.database.DBConnection;
 
 public class TestDBConnection {
     public static void main (String[ ] args ){

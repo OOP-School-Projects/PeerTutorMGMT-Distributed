@@ -1,7 +1,10 @@
 package models;
 // abstract since a user isnt created but it is role based 
 
-public abstract class User {
+import java.io.Serializable;
+
+
+public abstract class User implements Serializable{
     //var
     private String student_id;
     private String student_name;

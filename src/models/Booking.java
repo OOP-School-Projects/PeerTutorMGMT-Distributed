@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Booking {      
+public class Booking implements Serializable{      
     //Var
     private int booking_id;
     private int session_id;

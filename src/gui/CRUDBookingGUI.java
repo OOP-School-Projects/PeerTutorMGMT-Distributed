@@ -86,7 +86,7 @@ public class CRUDBookingGUI extends Application {
         }
         
         //scope
-            Scene scene = new Scene(root, 400, 350);
+            Scene scene = new Scene(root, 420, 400);
             
         //stage management
             crudStage.setTitle(mode.equals("request") ? "Request Session" : "Manage Booking");

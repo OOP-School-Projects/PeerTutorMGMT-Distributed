@@ -117,7 +117,7 @@ public class CRUDSessionGUI extends Application {
             root.setSpacing(8);
             root.setPadding(new Insets(15));
             
-            Scene scene = new Scene(root, 400, 450);
+            Scene scene = new Scene(root, 420, 500);
             
         //stage management
             crudStage.setTitle(mode.equals("create") ? "Create Session" : "Edit Session");

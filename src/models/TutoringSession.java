@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class TutoringSession {
+public class TutoringSession implements Serializable {
        
     //var
     private int session_id;
